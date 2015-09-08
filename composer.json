@@ -1,0 +1,12 @@
+{
+  "name" : "gnuboard-summernote",
+  "description" : "Summernote Plugin for gnuboard",
+  "keywords" : ["wysiwyg", "summernote", "editor"],
+  "license" : "MIT",
+  "authors" : [
+    {
+      "name" : "easylogic",
+      "email" : "cyberuls@gmail.com"
+    }
+  ]
+}
