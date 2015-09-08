@@ -12,34 +12,45 @@ function editor_html($id, $content, $is_dhtml_editor=true)
     $html .= "<span class=\"sound_only\">Summernote 시작</span>";
 
 	if ($is_dhtml_editor && $js) {
-		$html .= "\n".'<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">';
-		$html .= "\n".'<link rel="stylesheet" href="'.$editor_url.'/summernote/summernote.css">';
-		$html .= "\n".'<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />';	
-        $html .= "\n".'<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>';
-        $html .= "\n".'<script src="'.$editor_url.'/summernote/summernote.min.js"></script>';
-        $html .= "\n".'<script src="'.$editor_url.'/summernote/plugin/summernote-ext-video.js"></script>';
-        $html .= "\n".'<script src="'.$editor_url.'/suumernote/lang/summernote-ko-KR.js"></script>';
-		$html .= "\n".'<script>';
 
-		$html .= "\n".'function sendFile(file, editor) {';
-		$html .= "\n".'';
-        $html .= "\n".'    data = new FormData();';
-        $html .= "\n".'    data.append("file", file);';
-        $html .= "\n".'    $.ajax({';
-        $html .= "\n".'        data: data,';
-        $html .= "\n".'       type: "POST",';
-        $html .= "\n".'        url: "'.$editor_url.'/upload.php",';
-        $html .= "\n".'        cache: false,';
-        $html .= "\n".'        contentType: false,';
-        $html .= "\n".'        processData: false,';
-        $html .= "\n".'        success: function(url) {';
-        $html .= "\n".'            $(editor).summernote("insertImage", url);';
-        $html .= "\n".'        }';
-        $html .= "\n".'    });';
-        $html .= "\n".'}';
+        ob_start();
+?>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<link rel="stylesheet" href="<?php echo $editor_url ?>/summernote/summernote.css">
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
+<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+<script src="<?php echo $editor_url ?>/summernote/summernote.min.js"></script>
+<script src="<?php echo $editor_url ?>/summernote/plugin/summernote-ext-video.js"></script>
+<script src="<?php echo $editor_url ?>/summernote/plugin/summernote-ext-hint.js"></script>
+<script src="<?php echo $editor_url ?>/summernote/lang/summernote-ko-KR.js"></script>
+<script type="text/javascript">
 
-		$html .= "\n".'</script>';
-        $html .= "\n".'<script src="'.$editor_url.'/config.js"></script>';
+function sendFile(file, editor) {
+
+    data = new FormData();
+    data.append("SummernoteFile", file);
+    $.ajax({
+       data: data,
+       type: "POST",
+       url: "<?php echo $editor_url ?>/upload.php",
+       cache: false,
+       contentType: false,
+       processData: false,
+       success: function(url) {
+         if (url && url !== "fail") {
+             $(editor).summernote("insertImage", url);
+         }
+       }
+   });
+}
+
+</script>
+<script src="<?php echo $editor_url ?>/config.js"></script>
+
+<?php       
+        $html .= ob_get_contents();
+        ob_end_clean();
+
         $js = false;
     }
 

@@ -1,25 +1,27 @@
 <?php
-include "../_common.php";
-$bSuccessUpload = is_uploaded_file($_FILES['Filedata']['tmp_name']);
+include "./_common.php";
 
-$ym = date('ym', G5_SERVER_TIME);
 
-$data_dir = G5_DATA_PATH.'/editor/'.$ym;
-$data_url = G5_DATA_URL.'/editor/'.$ym;
-
-@mkdir($data_dir, G5_DIR_PERMISSION);
-@chmod($data_dir, G5_DIR_PERMISSION);
-
+$isUpload = is_uploaded_file($_FILES['SummernoteFile']['tmp_name']);
 // SUCCESSFUL
-if($bSuccessUpload) {
-	$tmp_name = $_FILES['Filedata']['tmp_name'];
-	$name = $_FILES['Filedata']['name'];
+if($isUpload) {
+    $ym = date('ym', G5_SERVER_TIME);
+
+    $data_dir = G5_DATA_PATH.'/editor/'.$ym;
+    $data_url = G5_DATA_URL.'/editor/'.$ym;
+
+    @mkdir($data_dir, G5_DIR_PERMISSION);
+    @chmod($data_dir, G5_DIR_PERMISSION);
+
+	$tmp_name = $_FILES['SummernoteFile']['tmp_name'];
+	$name = $_FILES['SummernoteFile']['name'];
 	
 	$filename_ext = strtolower(array_pop(explode('.',$name)));
 
 	
 	if (!preg_match("/(jpe?g|gif|bmp|png)$/i", $filename_ext)) {
 		// error
+        echo 'fail';
 	} else {
 		
         $file_name = sprintf('%u', ip2long($_SERVER['REMOTE_ADDR'])).'_'.get_microtime().".".$filename_ext;
