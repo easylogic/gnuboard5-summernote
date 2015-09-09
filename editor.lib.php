@@ -21,7 +21,6 @@ function editor_html($id, $content, $is_dhtml_editor=true)
 <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
 <script src="<?php echo $editor_url ?>/summernote/summernote.min.js"></script>
 <script src="<?php echo $editor_url ?>/summernote/plugin/summernote-ext-video.js"></script>
-<script src="<?php echo $editor_url ?>/summernote/plugin/summernote-ext-hint.js"></script>
 <script src="<?php echo $editor_url ?>/summernote/lang/summernote-ko-KR.js"></script>
 <script type="text/javascript">
 

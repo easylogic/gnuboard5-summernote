@@ -247,7 +247,9 @@
         }
       });
 
-      this.load($popover);
+      if (this.load) {
+        this.load($popover);
+      }
     },
 
     throttle : 50,
