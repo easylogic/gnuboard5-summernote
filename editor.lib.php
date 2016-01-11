@@ -35,9 +35,14 @@ function sendFile(file, editor) {
        cache: false,
        contentType: false,
        processData: false,
-       success: function(url) {
-         if (url && url !== "fail") {
-             $(editor).summernote("insertImage", url);
+       success: function(data) {
+         var obj =  JSON.parse(data);
+         if (obj.success) {
+             $(editor).summernote("insertImage", obj.save_url);
+         } else {
+            switch(obj.error) {
+                case 1: alert('업로드 용량 제한에 걸렸습니다.'); break; 
+            }
          }
        }
    });
