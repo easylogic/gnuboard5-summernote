@@ -19,7 +19,7 @@
         ['help', ['help']]
       ],
       onImageUpload: function (files) {
-        var maxSize = 1 * 1024; 
+        var maxSize = 1 * 1024 * 1024; // limit 1MB  
         // TODO: implements insert image
         var isMaxSize = false; 
         var maxFile = null;
