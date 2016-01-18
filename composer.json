@@ -3,6 +3,7 @@
   "description" : "Summernote Plugin for gnuboard",
   "keywords" : ["wysiwyg", "summernote", "editor"],
   "license" : "MIT",
+  "version" : "1.3",
   "authors" : [
     {
       "name" : "easylogic",
