@@ -20,7 +20,6 @@ function editor_html($id, $content, $is_dhtml_editor=true)
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
 <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
 <script src="<?php echo $editor_url ?>/summernote/summernote.min.js"></script>
-<script src="<?php echo $editor_url ?>/summernote/plugin/summernote-ext-video.js"></script>
 <script src="<?php echo $editor_url ?>/summernote/lang/summernote-ko-KR.js"></script>
 <script type="text/javascript">
 
@@ -69,7 +68,7 @@ function sendFile(file, editor) {
 function get_editor_js($id, $is_dhtml_editor=true)
 {
     if ($is_dhtml_editor) {
-        return "var {$id}_editor_data = $('#{$id}').code();";
+        return "var {$id}_editor_data = $('#{$id}').summernote('code');";
     } else {
         return "var {$id}_editor = document.getElementById('{$id}');\n";
     }
