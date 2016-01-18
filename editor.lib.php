@@ -17,7 +17,7 @@ function editor_html($id, $content, $is_dhtml_editor=true)
 ?>
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <link rel="stylesheet" href="<?php echo $editor_url ?>/summernote/summernote.css">
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.css">
 <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
 <script src="<?php echo $editor_url ?>/summernote/summernote.min.js"></script>
 <script src="<?php echo $editor_url ?>/summernote/lang/summernote-ko-KR.js"></script>
@@ -39,8 +39,17 @@ function sendFile(file, editor) {
          if (obj.success) {
              $(editor).summernote("insertImage", obj.save_url);
          } else {
-            switch(obj.error) {
+            switch(parseInt(obj.error)) {
                 case 1: alert('업로드 용량 제한에 걸렸습니다.'); break; 
+				case 2: alert('MAX_FILE_SIZE 보다 큰 파일은 업로드할 수 없습니다.'); break;
+				case 3: alert('파일이 일부분만 전송되었습니다.'); break;
+				case 4: alert('파일이 전송되지 않았습니다.'); break;
+				case 6: alert('임시 폴더가 없습니다.'); break;
+				case 7: alert('파일 쓰기 실패'); break;
+				case 8: alert('알수 없는 오류입니다.'); break;
+                case 100: alert('이미지 파일이 아닙니다.(jpeg, jpg, gif, bmp, png 만 올리실 수 있습니다.)'); break; 
+                case 101: alert('이미지 파일이 아닙니다.(jpeg, jpg, gif, bmp, png 만 올리실 수 있습니다.)'); break; 
+                case 102: alert('0 byte 파일은 업로드 할 수 없습니다.'); break; 
             }
          }
        }

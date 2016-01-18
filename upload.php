@@ -17,11 +17,24 @@ if($isUpload) {
 	$name = $_FILES['SummernoteFile']['name'];
 	
 	$filename_ext = strtolower(array_pop(explode('.',$name)));
+	$mime_result = ' '.@mime_content_type($tmp_name).@shell_exec('file -bi '. $tmp_name);
 
 	
-	if (!preg_match("/(jpe?g|gif|bmp|png)$/i", $filename_ext)) {
+	// thanks to @dewoweb 
+	if (!preg_match("/(jpe?g|gif|bmp|png)$/i", $filename_ext)) {   // check file extension 
 		// error
+		@unlink($tmp_name);
         echo json_encode(array('success' => false, 'error' => 100)); // file type error 
+	} else if ( !stripos($mime_result, 'jpeg') &&							// check file mime-type 
+		!stripos($mime_result, 'jpg') &&
+		!stripos($mime_result, 'gif') &&
+		!stripos($mime_result, 'bmp') &&
+		!stripos($mime_result, 'png') ) {
+		@unlink($tmp_name);
+		echo json_encode(array('success'=> false, 'error' => 101));
+	} else if (!getimagesize($tmp_name)) {								// check file size, if filesize is zero, return fail 
+		@unlink($tmp_name);
+		echo json_encode(array('success'=> false, 'error' => 102));
 	} else {
 		
         $file_name = sprintf('%u', ip2long($_SERVER['REMOTE_ADDR'])).'_'.get_microtime().".".$filename_ext;
