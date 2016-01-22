@@ -32,7 +32,7 @@ if($isUpload) {
 		!stripos($mime_result, 'png') ) {
 		@unlink($tmp_name);
 		echo json_encode(array('success'=> false, 'error' => 101));
-	} else if (!getimagesize($tmp_name)) {								// check file size, if filesize is zero, return fail 
+	} else if (!getimagesize($tmp_name)) {								// check image resolution, if resolutions is null, return fail 
 		@unlink($tmp_name);
 		echo json_encode(array('success'=> false, 'error' => 102));
 	} else {
