@@ -6,7 +6,7 @@
  * Copyright 2013-2015 Alan Hong. and other contributors
  * summernote may be freely distributed under the MIT license./
  *
- * Date: 2016-01-14T13:17Z
+ * Date: 2016-01-22T02:34Z
  */
 (function (factory) {
   /* global define */
@@ -4407,7 +4407,7 @@
      * returns whether editable area has focus or not.
      */
     this.hasFocus = function () {
-      return $editable.is(':focus');
+      return $editable.is(':focus') || $editable.is(':active');
     };
 
     /**
